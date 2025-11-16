@@ -1,0 +1,60 @@
+{
+  "name": "react-typescript",
+  "version": "1.0.0",
+  "description": "React and TypeScript example starter project",
+  "keywords": [
+    "typescript",
+    "react",
+    "starter"
+  ],
+  "main": "src/index.tsx",
+  "dependencies": {
+    "@emotion/react": "11.13.5",
+    "@emotion/styled": "11.13.5",
+    "@mdi/js": "6.5.95",
+    "@mdi/react": "1.5.0",
+    "@mui/material": "5.18.0",
+    "@mui/styles": "5.18.0",
+    "@types/lodash": "4.14.178",
+    "i18next": "21.6.11",
+    "lodash": "4.17.21",
+    "mobx": "^6.13.0",
+    "mobx-react": "9.2.1",
+    "notistack": "3.0.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-i18next": "11.15.4",
+    "react-router-dom": "5.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "18.3.26",
+    "@types/react-dom": "18.3.7",
+    "@types/react-router-dom": "^5.3.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "@vitest/coverage-v8": "^4.0.8",
+    "@vitest/ui": "^3.2.4",
+    "jsdom": "^27.0.1",
+    "typescript": "4.4.2",
+    "vite": "^7.2.2",
+    "vitest": "^3.2.4"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "test:run": "vitest run"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
