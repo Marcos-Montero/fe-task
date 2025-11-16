@@ -1,0 +1,77 @@
+{
+  "logout": "Abmelden",
+  "appTitle": "Lieferanten OS Anwendung",
+  "timeIsUp": "Die Zeit ist um!",
+  "routes": {
+    "/home": "Bug Bounty Herausforderung"
+  },
+  "home": {
+    "welcome": "Willkommen!",
+    "intro": "Dies ist eine Demo-Anwendung mit einigen Fehlern und Bugs, die wir hoffen, dass Sie sie finden können. 😃 Hier ist die Liste der <b>bekannten</b> Probleme:",
+    "sidenote": "Alle Bugs haben ein unterschiedliches Komplexitätsniveau und alle sind ziemlich häufig (echte Probleme für jeden React-Entwickler). Um alle offenen Punkte zu lösen, sind verschiedene Fähigkeiten erforderlich: Googeln, Erfahrung, Lesen von Dokumentation und Fehlermeldungen, Kreativität und analytisches Denken.",
+    "seeSolution": "Lösung ansehen →"
+  },
+  "accessDenied": {
+    "title": "Zugriff verweigert",
+    "message": "Sie sind nicht berechtigt, diese Anwendung zu nutzen.",
+    "logout": "Abmelden"
+  },
+  "issues": {
+    "0": {
+      "icon": "🐞",
+      "title": "Konsolenfehler: Warnung: Jedes Kind in einer Liste sollte eine eindeutige &quot;key&quot;-Prop haben.",
+      "description": "Hoffentlich können Sie herausfinden, was diesen Fehler verursacht, da er ärgerlich ist."
+    },
+    "1": {
+      "icon": "🐞",
+      "title": "Das Wort \"bekannt\" sollte im Einführungstext fett angezeigt werden.",
+      "description": "Stellen Sie bei der Implementierung einer Lösung sicher, dass der i18n-Text nicht geändert wird."
+    },
+    "2": {
+      "icon": "🐞",
+      "title": "Das Benutzer-Avatar in der App-Leiste fehlt, obwohl der Benutzer beim App-Start korrekt abgerufen werden sollte.",
+      "description": "Beim App-Start laden wir das aktuelle Benutzerobjekt über einen MobX-Store, aber aus irgendeinem Grund wird das Benutzer-Avatar oben rechts in der App-Leiste nicht angezeigt. Achtung: Bei der Lösung dieses Problems könnten Sie auf einen zweiten Fehler stoßen."
+    },
+    "3": {
+      "icon": "🐞",
+      "title": "Optional: Der Countdown funktioniert manchmal nicht (schwer zu reproduzieren).",
+      "description": "Einige Entwickler erwähnten, dass der Countdown in der App-Leiste manchmal seltsam funktioniert, aber leider konnten sie diesen Fehler nicht zuverlässig reproduzieren, vielleicht finden Sie die Ursache."
+    },
+    "4": {
+      "icon": "⭐️",
+      "title": "Optional: Es wäre großartig, die Sprache wechseln zu können.",
+      "description": "Bitte fügen Sie ein Sprachauswahl-Steuerelement in der App-Leiste hinzu, um die UI-Sprache zwischen Englisch und Deutsch zu wechseln."
+    }
+  },
+  "solutions": {
+    "filesTitle": "Verwandte Dateien",
+    "0": {
+      "title": "Lösung: Fehlende key-Prop in Liste",
+      "content": "Das Problem wurde durch fehlende <code>key</code>-Props in Listenelementen verursacht. React benötigt eindeutige Schlüssel für Listenelemente, um Änderungen effizient zu verfolgen.\n\n<strong>Lösung:</strong> Eine eindeutige <code>key</code>-Prop wurde zu jedem Listenelement hinzugefügt, indem der Index aus der Map-Funktion verwendet wurde.\n\nDies wurde in der Home-Komponente behoben, wo die Listenelemente gerendert werden.",
+      "files": [{ "path": "src/pages/Home/index.tsx", "line": 25 }]
+    },
+    "1": {
+      "title": "Lösung: Fetter Text in der Einführung",
+      "content": "Das Wort \"bekannt\" musste im i18n-Text fett angezeigt werden.\n\n<strong>Lösung:</strong> Die <code>Trans</code>-Komponente von react-i18next wurde verwendet, um den fetten Text mit einem <code>&lt;b&gt;</code>-Tag zu umschließen. Dies ermöglicht HTML-Formatierung ohne Änderung der i18n-Übersetzungsstrings.\n\nDie <code>Trans</code>-Komponente ordnet HTML-Tags React-Komponenten zu und erhält dabei die Übersetzungsstruktur bei, während Styling ermöglicht wird.",
+      "files": [{ "path": "src/pages/Home/index.tsx", "line": 19 }]
+    },
+    "2": {
+      "title": "Lösung: Fehlendes Benutzer-Avatar",
+      "content": "Das Benutzer-Avatar wurde nicht angezeigt, obwohl der Benutzer korrekt abgerufen wurde.\n\n<strong>Lösung:</strong> Das Problem war wahrscheinlich mit dem bedingten Rendering oder dem MobX Observer-Muster verbunden. Das Benutzerobjekt wurde abgerufen, aber die Avatar-Komponente reagierte möglicherweise nicht richtig auf Zustandsänderungen.\n\nBehoben durch Sicherstellung, dass die AvatarMenu-Komponente ordnungsgemäß mit observer umschlossen ist und die user-Prop korrekt von der AppHeader-Komponente weitergegeben wird.",
+      "files": [
+        { "path": "src/components/AppHeader/index.tsx", "line": 151 },
+        { "path": "src/components/AvatarMenu/index.tsx" }
+      ]
+    },
+    "3": {
+      "title": "Lösung: Countdown-Timer-Problem",
+      "content": "Der Countdown-Timer verhielt sich seltsam aufgrund eines Closure-Problems im setInterval-Callback.\n\n<strong>Lösung:</strong> Eine funktionale Update-Form <code>setCount((c) => c - 1)</code> wurde verwendet, anstatt sich auf den count-Wert aus dem Closure zu verlassen. Dies stellt sicher, dass der Countdown immer den neuesten Zustandswert verwendet.\n\nZusätzlich wurde eine ordnungsgemäße Bereinigung des Intervalls sichergestellt, wenn die Komponente demontiert wird oder wenn der Countdown null erreicht.",
+      "files": [{ "path": "src/components/AppHeader/index.tsx", "line": 99 }]
+    },
+    "4": {
+      "title": "Lösung: Sprachumschalter",
+      "content": "Ein Sprachumschalter-Steuerelement wurde zur App-Leiste hinzugefügt.\n\n<strong>Lösung:</strong> Ein Sprachauswahlmenü wurde mit Material-UI's Menu-Komponente implementiert. Der Umschalter:\n<ul><li>Zeigt die aktuelle Sprache mit einem Flaggen-Emoji an</li><li>Zeigt ein Dropdown-Menü mit verfügbaren Sprachen</li><li>Verwendet i18next's <code>changeLanguage</code>-Methode zum Wechseln der Sprachen</li><li>Verwaltet Zustände und Menüpositionierung ordnungsgemäß</li></ul>",
+      "files": [{ "path": "src/components/AppHeader/index.tsx", "line": 160 }]
+    }
+  }
+}

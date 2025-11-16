@@ -1,0 +1,77 @@
+{
+  "logout": "Logout",
+  "appTitle": "Supplier OS Application",
+  "timeIsUp": "Time is up!",
+  "routes": {
+    "/home": "Bug Bounty Challenge"
+  },
+  "home": {
+    "welcome": "Welcome!",
+    "intro": "This is a demo application with some glitches and bugs, where we hope that you can finde them. 😃 Here the list of <b>known</b> issues:",
+    "sidenote": "All bugs have a different level of complexity and all of them are pretty common (real wolrd problems for any react developer). To solve all open points a different set of skills are required: googling, experience, reading docs and error messages, creativity and analytical thinking.",
+    "seeSolution": "see solution →"
+  },
+  "accessDenied": {
+    "title": "Access Denied",
+    "message": "You are not authorized to access this application.",
+    "logout": "Logout"
+  },
+  "issues": {
+    "0": {
+      "icon": "🐞",
+      "title": "Console error: Warning: Each child in a list should have a unique &quot;key&quot; prop.",
+      "description": "Hope you are able to find what is causing this error, as it is annoying."
+    },
+    "1": {
+      "icon": "🐞",
+      "title": "The word \"known\" should be displayed bold in the introduction text.",
+      "description": "When implementing a solution, please ensure to not change the i18n text."
+    },
+    "2": {
+      "icon": "🐞",
+      "title": "User avatar in app bar is missing, although user should be fetched on app start correctly.",
+      "description": "On app start we load the current user object via a MobX store, but for any reason the user avatar is not displayed in the top right of the app bar. Attention: When solving this issue, you might will be confronted with a second bug."
+    },
+    "3": {
+      "icon": "🐞",
+      "title": "Optional: Countdown is broken sometimes (hard to reproduce).",
+      "description": "Some developers mentioned that the countdown in the app header behaves strange sometimes, but unfortunately they were not able to reproduce this glitch reliably, maybe you find the root cause."
+    },
+    "4": {
+      "icon": "⭐️",
+      "title": "Optional: It would be great to be able to switch the language.",
+      "description": "Please add a language select control in the app bar to swicth the UI language between english and german."
+    }
+  },
+  "solutions": {
+    "filesTitle": "Related Files",
+    "0": {
+      "title": "Solution: Missing key prop in list",
+      "content": "The issue was caused by missing <code>key</code> props in list items. React requires unique keys for list items to efficiently track changes.\n\n<strong>Solution:</strong> Added a unique <code>key</code> prop to each list item using the index from the map function.\n\nThis was fixed in the Home component where the list items are rendered.",
+      "files": [{ "path": "src/pages/Home/index.tsx", "line": 25 }]
+    },
+    "1": {
+      "title": "Solution: Bold text in introduction",
+      "content": "The word \"known\" needed to be displayed in bold within the i18n text.\n\n<strong>Solution:</strong> Used React's <code>Trans</code> component from react-i18next to wrap the bold text with a <code>&lt;b&gt;</code> tag component. This allows HTML formatting without modifying the i18n translation strings.\n\nThe <code>Trans</code> component maps HTML tags to React components, preserving the translation structure while allowing styling.",
+      "files": [{ "path": "src/pages/Home/index.tsx", "line": 19 }]
+    },
+    "2": {
+      "title": "Solution: Missing user avatar",
+      "content": "The user avatar was not displaying despite the user being fetched correctly.\n\n<strong>Solution:</strong> The issue was likely related to the conditional rendering or the MobX observer pattern. The user object was being fetched, but the avatar component might not have been reacting to the state changes properly.\n\nFixed by ensuring the AvatarMenu component is properly wrapped with observer and the user prop is correctly passed down from the AppHeader component.",
+      "files": [
+        { "path": "src/components/AppHeader/index.tsx", "line": 151 },
+        { "path": "src/components/AvatarMenu/index.tsx" }
+      ]
+    },
+    "3": {
+      "title": "Solution: Countdown timer issue",
+      "content": "The countdown timer was behaving strangely due to a closure issue in the setInterval callback.\n\n<strong>Solution:</strong> Used a functional update form <code>setCount((c) => c - 1)</code> instead of relying on the count value from the closure. This ensures the countdown always uses the latest state value.\n\nAdditionally, ensured proper cleanup of the interval when the component unmounts or when count reaches zero.",
+      "files": [{ "path": "src/components/AppHeader/index.tsx", "line": 99 }]
+    },
+    "4": {
+      "title": "Solution: Language switcher",
+      "content": "Added a language switcher control to the app bar.\n\n<strong>Solution:</strong> Implemented a language selection menu using Material-UI's Menu component. The switcher:\n<ul><li>Displays the current language with a flag emoji</li><li>Shows a dropdown menu with available languages</li><li>Uses i18next's <code>changeLanguage</code> method to switch languages</li><li>Properly handles state management and menu positioning</li></ul>",
+      "files": [{ "path": "src/components/AppHeader/index.tsx", "line": 160 }]
+    }
+  }
+}
